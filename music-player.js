@@ -95,6 +95,9 @@ let userData = {
 };
 
 const playSong = (id) => {
+  clearInterval(updateTimer);
+  resetValues();
+
   const song = userData?.songs.find((song) => song.id === id);
   audio.src = song.src;
   audio.title = song.title;
@@ -111,6 +114,7 @@ const playSong = (id) => {
   setPlayerDisplay();
   setPlayButtonAccessibleText();
   audio.play();
+  updateTimer = setInterval(seekUpdate, 1000);
   resumeCoverAnimation();
 };
 
@@ -282,7 +286,56 @@ function resumeCoverAnimation() {
   albumCover.style.animationPlayState = "running";
 }
 
-let volumeSlider = document.querySelector(".volume-slider");
+const seekSlider = document.querySelector(".seek-slider");
+const currTime = document.querySelector(".current-time");
+const totalDuration = document.querySelector(".total-duration");
+/* let track_index = 0;
+let isPlaying = false;
+  */
+let updateTimer;
+
+function resetValues() {
+  currTime.textContent = "00:00";
+  totalDuration.textContent = "00:00";
+  seekSlider.value = 0;
+} 
+function seekTo() {
+  const seekto = audio.duration * (seekSlider.value / 100); 
+  audio.currentTime = seekto;
+}
+
+seekSlider.addEventListener("change", seekTo);
+
+function seekUpdate() {
+  let seekPosition = 0;
+  if (!isNaN(audio.duration)) {
+    seekPosition = audio.currentTime * (100 / audio.duration);
+    seekSlider.value = seekPosition;
+
+    let currMinutes = Math.floor(audio.currentTime / 60);
+    let currSeconds = Math.floor(audio.currentTime - currMinutes * 60);
+    let durationMinutes = Math.floor(audio.duration / 60);
+    let durationSeconds = Math.floor(audio.duration - durationMinutes * 60);
+
+    if (currSeconds < 10) {
+      currSeconds = "0" + currSeconds;
+    }
+    if (durationSeconds < 10) {
+      durationSeconds = "0" + durationSeconds;
+    }
+    if (currMinutes < 10) {
+      currMinutes = "0" + currMinutes;
+    }
+    if (durationMinutes < 10) {
+      durationMinutes = "0" + durationMinutes;
+    }
+    
+    currTime.textContent = currMinutes + ":" + currSeconds;
+    totalDuration.textContent = durationMinutes + ":" + durationSeconds;
+  }
+};
+
+const volumeSlider = document.querySelector(".volume-slider");
 volumeSlider.value = 40;
 volumeSlider.addEventListener("input", setVolume);
 function setVolume() {
