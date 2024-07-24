@@ -1,10 +1,3 @@
-const playlistSongs = document.getElementById("playlist-songs");
-const previousButton = document.getElementById("previous");
-const playButton = document.getElementById("play");
-const pauseButton = document.getElementById("pause");
-const nextButton = document.getElementById("next");
-const shuffleButton = document.getElementById("shuffle");
-
 const songsList = [
   {
     id: 0,
@@ -85,6 +78,13 @@ const songsList = [
   }
 ];
 /* source: https://tunetank.com/ */
+
+const playlistSongs = document.getElementById("playlist-songs");
+const previousButton = document.getElementById("previous");
+const playButton = document.getElementById("play");
+const pauseButton = document.getElementById("pause");
+const nextButton = document.getElementById("next");
+const shuffleButton = document.getElementById("shuffle");
 
 const audio = new Audio();
 
@@ -215,19 +215,21 @@ const highlightCurrentSong = () => {
 const renderSongs = (array) => {
   const songsHTML = array.map((song) => {
     return `
-    <li id="song-${song.id}" class="playlist-song">
-    <button class="playlist-song-info" onclick="playSong(${song.id})">
-      <div class="pl-title-artist-div">
-        <div class="playlist-song-title">${song.title}</div>
-        <div class="playlist-song-artist">${song.artist}</div>
-      </div>
-      <div class="playlist-song-duration">${song.duration}</div>
-    </button>
-
-    <button onclick="deleteSong(${song.id})" class="playlist-song-delete" aria-label="Delete ${song.title}">
-        <i class="fa-regular fa-circle-xmark"></i>
+    <div class="playlist-song-container">
+      <li id="song-${song.id}" class="playlist-song">
+      <button class="playlist-song-info" onclick="playSong(${song.id})">
+        <div class="pl-title-artist-div">
+          <div class="playlist-song-title">${song.title}</div>
+          <div class="playlist-song-artist">${song.artist}</div>
+        </div>
+        <div class="playlist-song-duration">${song.duration}</div>
       </button>
-    </li>
+
+      <button onclick="deleteSong(${song.id})" class="playlist-song-delete" aria-label="Delete ${song.title}">
+          <i class="fa-regular fa-circle-xmark"></i>
+        </button>
+      </li>
+    </div>
     `;
   }).join("");
   playlistSongs.innerHTML = songsHTML;

@@ -111,7 +111,6 @@ ul {
 
 #player-album-cover {
   background-color: var(--secondary-clr);
-  /* border: 3px solid var(--background-clr); */
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 12px 2px var(--highlight-clr2);
@@ -144,7 +143,6 @@ ul {
 
 .player-display-song-artist {
   height: 70px;
-  border: 1px solid red;
   text-align: center;
 }
 
@@ -177,18 +175,8 @@ button {
   cursor: pointer;
 }
 
-.playlist-song {
-  outline-color: var(--highlight-clr);
-}
-
-.playlist li:not(:last-child) {
+.playlist-song-container:not(:last-child) {
   border-bottom: 1px solid var(--background-clr);
-}
-
-button:focus,
-.playlist-song:focus {
-  outline-style: dotted;
-  outline-width: 2px;
 }
 
 /* playlist */
@@ -220,8 +208,8 @@ button:focus,
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  /* border: 1px solid red; */
   border-radius: 6px;
+  outline-color: var(--highlight-clr);
 }
 
 /* ****************************
@@ -243,15 +231,12 @@ button:focus,
   padding: 5px 0;
   font-family: var(--font-family);
   width: 100%;
-  border: 2px solid green;
 }
 .pl-title-artist-div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 320px;
-  border: 1px solid blue;
- 
 }
 
 #player-song-title,
@@ -272,7 +257,6 @@ button:focus,
   font-size: 0.95rem;
   margin-right: 10px;
   text-align: left;
-  border: 1px solid red;
 }
 
 .playlist-song-artist {
@@ -395,9 +379,6 @@ button:focus,
     flex-direction: column;
     align-items: center;
     width: 180px;
-  }
-  .playlist-song {
-    justify-content: space-between;
   }
 
   .playlist-song-title {
